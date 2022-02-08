@@ -7,5 +7,8 @@ The .bas files are in the repo itself both for interest, and to provide diffs/co
 
 # Changelog
 
+2022-02-07
+- Accommodate `expect` field in `strings_plural.xml`
+
 2022-01-22
 - Initial version
