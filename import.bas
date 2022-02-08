@@ -129,15 +129,16 @@ Sub import_strings_plural(ByRef forms() As Boolean, ByRef forms_example() As Int
     Dim row As Integer
     row = 1
     Dim schema_max As Integer
-    schema_max = 3 + num_forms
+    schema_max = 4 + num_forms
     ReDim schema(schema_max) As String
     
     schema(0) = "english_plural"
     schema(1) = "english_singular"
     schema(2) = "explanation"
     schema(3) = "max"
+    schema(4) = "expect"
     
-    sch_ix = 4
+    sch_ix = 5
     For f = 0 To 254
         If forms(f) Then
             schema(sch_ix) = "form " & f & " (ex: " & forms_example(f) & ")"
