@@ -102,12 +102,12 @@ Sub export_strings_plural()
         Set elem = XDoc.createElement("string")
         root.appendChild elem
         
-        For Each col In Array("english_plural", "english_singular", "explanation", "max", "expect")
+        For Each col In Array("english_plural", "english_singular", "explanation", "max", "var", "expect")
             Dim key As String
             key = col
             
             value = ListRow_get(row, key)
-            If Not ((key = "max" Or key = "expect") And value = "") Then
+            If Not ((key = "max" Or key = "var" Or key = "expect") And value = "") Then
                 Set attr = XDoc.createAttribute(key)
                 attr.NodeValue = value
                 elem.setAttributeNode attr

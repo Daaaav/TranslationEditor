@@ -7,6 +7,10 @@ The .bas files are in the repo itself both for interest, and to provide diffs/co
 
 # Changelog
 
+2022-05-14
+- Accommodate `var` field in `strings_plural.xml`
+- Update description for numbers.xml to be more in line with VFormat changes and for potential removal of "Lots"
+
 2022-02-07
 - Accommodate `expect` field in `strings_plural.xml`
 

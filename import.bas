@@ -129,16 +129,17 @@ Sub import_strings_plural(ByRef forms() As Boolean, ByRef forms_example() As Int
     Dim row As Integer
     row = 1
     Dim schema_max As Integer
-    schema_max = 4 + num_forms
+    schema_max = 5 + num_forms
     ReDim schema(schema_max) As String
     
     schema(0) = "english_plural"
     schema(1) = "english_singular"
     schema(2) = "explanation"
     schema(3) = "max"
-    schema(4) = "expect"
+    schema(4) = "var"
+    schema(5) = "expect"
     
-    sch_ix = 5
+    sch_ix = 6
     For f = 0 To 254
         If forms(f) Then
             schema(sch_ix) = "form " & f & " (ex: " & forms_example(f) & ")"
@@ -159,7 +160,7 @@ Sub import_strings_plural(ByRef forms() As Boolean, ByRef forms_example() As Int
         row = row + 1
         
         For Each subNode In root.ChildNodes
-            ' <string english_plural= english_singular= explanation= max=>
+            ' <string english_plural= english_singular= explanation= max= var= expect=>
             ' Format as text, don't guess/convert numbers
             .Range(.Cells(row, col_A), .Cells(row, col_Z)).NumberFormat = "@"
             
