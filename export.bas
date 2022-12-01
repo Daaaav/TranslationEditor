@@ -54,8 +54,7 @@ Sub export_simple(file As String)
                 key = col.name
                 value = ListRow_get(row, col.name)
     
-                If (file = "strings.xml" And key = "max" And value = "") _
-                Or (file = "numbers.xml" And key = "form" And ListRow_get(row, "value") = "lots") _
+                If (file = "strings.xml" And (key = "max" Or key = "case") And value = "") _
                 Or (file = "numbers.xml" And (key = "english" Or key = "translation") And ListRow_get(row, "english") = "") Then
                     ' Don't include this attribute
                 Else

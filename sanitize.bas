@@ -40,6 +40,7 @@ Sub sanitize_xml(file As String, filename As String)
     
     ' Decontaminate special characters
     contents = Replace(contents, Chr(&HE2) & Chr(&H80) & Chr(&HA6), "...") ' ellipsis character
+    contents = Replace(contents, Chr(&HE2) & Chr(&H80) & Chr(&H98), "&apos;") ' U+2018 curly quote, see import->get_file_xml
     contents = Replace(contents, "'", "&apos;")
     contents = Replace(contents, Chr(13), "") ' Windows carriage return
     

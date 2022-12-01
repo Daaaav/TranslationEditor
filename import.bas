@@ -11,6 +11,41 @@ Sub clear_sheet(file As String)
     On Error GoTo 0
 End Sub
 
+Function get_file_xml(file As String) As String
+    Dim FSO
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+    
+    Const ForReading = 1
+    Const ForWriting = 2
+    
+    Set doc = FSO.OpenTextFile(get_cell_path() & "\" & file, ForReading)
+    contents = doc.ReadAll
+    doc.Close
+    
+    ' Workaround for a REALLY painful MSXML bug(?)
+    ' If an attribute looks like attribute="&apos;text"
+    ' then it MAY! be loaded in as "text" instead of "'text".
+    ' So just replace apostrophes directly following " by a curly quote (U+2018)
+    ' and sanitize it out later.
+    contents = Replace(contents, """&apos;", """" & Chr(&HE2) & Chr(&H80) & Chr(&H98))
+    
+    ' For the icing on the cake: MSXML2.DOMDocument.LoadXML only works with UTF-16!
+    ' So just use Load with a temporary file instead of converting the string
+    temp_name = FSO.GetTempName()
+    Set doc_output = FSO.CreateTextFile(temp_name)
+    doc_output.Write contents
+    doc_output.Close
+    
+    get_file_xml = temp_name
+End Function
+
+Sub delete_temp_file(filename As String)
+    Dim FSO
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+    
+    FSO.DeleteFile filename
+End Sub
+
 Sub import_simple(file As String)
     indicate_import_progress file
 
@@ -18,7 +53,10 @@ Sub import_simple(file As String)
 
     Set XDoc = CreateObject("MSXML2.DOMDocument")
     XDoc.async = False: XDoc.validateOnParse = False
-    success = XDoc.Load(get_cell_path() & "\" & file)
+    Dim temp_doc_filename As String
+    temp_doc_filename = get_file_xml(file)
+    success = XDoc.Load(temp_doc_filename)
+    delete_temp_file temp_doc_filename
     
     If Not success Then
         MsgBox "Can't import " & file & ", file not found!", vbExclamation
@@ -33,12 +71,13 @@ Sub import_simple(file As String)
     Dim schema_max As Integer
     
     If file = "strings.xml" Then
-        schema_max = 3
+        schema_max = 4
         ReDim schema(schema_max)
         schema(0) = "english"
         schema(1) = "translation"
-        schema(2) = "explanation"
-        schema(3) = "max"
+        schema(2) = "case"
+        schema(3) = "explanation"
+        schema(4) = "max"
     ElseIf file = "numbers.xml" Then
         schema_max = 3
         ReDim schema(schema_max)
@@ -110,7 +149,10 @@ Sub import_strings_plural(ByRef forms() As Boolean, ByRef forms_example() As Int
 
     Set XDoc = CreateObject("MSXML2.DOMDocument")
     XDoc.async = False: XDoc.validateOnParse = False
-    success = XDoc.Load(get_cell_path() & "\" & file)
+    Dim temp_doc_filename As String
+    temp_doc_filename = get_file_xml(file)
+    success = XDoc.Load(temp_doc_filename)
+    delete_temp_file temp_doc_filename
     
     If Not success Then
         MsgBox "Can't import " & file & ", file not found!", vbExclamation
@@ -209,7 +251,10 @@ Sub import_cutscenes()
 
     Set XDoc = CreateObject("MSXML2.DOMDocument")
     XDoc.async = False: XDoc.validateOnParse = False
-    success = XDoc.Load(get_cell_path() & "\" & file)
+    Dim temp_doc_filename As String
+    temp_doc_filename = get_file_xml(file)
+    success = XDoc.Load(temp_doc_filename)
+    delete_temp_file temp_doc_filename
     
     If Not success Then
         MsgBox "Can't import " & file & ", file not found!", vbExclamation

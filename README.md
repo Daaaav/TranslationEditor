@@ -7,6 +7,11 @@ The .bas files are in the repo itself both for interest, and to provide diffs/co
 
 # Changelog
 
+2022-11-30
+- Remove support for "Lots" in `numbers.xml` (it's removed from VVVVVV)
+- Accommodate `case` field in `strings.xml` (for equivalent English strings needing different translations)
+- Workaround a painful MSXML bug where XML attributes starting with `&apos;` have that apostrophe removed (just see the comments in `export.get_file_xml`)
+
 2022-05-14
 - Accommodate `var` field in `strings_plural.xml`
 - Update description for numbers.xml to be more in line with VFormat changes and for potential removal of "Lots"
