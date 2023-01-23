@@ -32,6 +32,12 @@ Sub export_simple(file As String)
     XDoc.appendChild root
     Dim attr As Object
     
+    If file = "strings.xml" And Worksheets("Controls").Range("B18").value <> "" Then
+        Set attr = XDoc.createAttribute("max_local_for")
+        attr.NodeValue = Worksheets("Controls").Range("B18").value
+        root.setAttributeNode attr
+    End If
+    
     Dim tbl As ListObject
     On Error Resume Next
     Set tbl = Worksheets(file).ListObjects("nice_table")
@@ -54,7 +60,7 @@ Sub export_simple(file As String)
                 key = col.name
                 value = ListRow_get(row, col.name)
     
-                If (file = "strings.xml" And (key = "max" Or key = "case") And value = "") _
+                If (file = "strings.xml" And (key = "case" Or key = "max" Or key = "max_local") And value = "") _
                 Or (file = "numbers.xml" And (key = "english" Or key = "translation") And ListRow_get(row, "english") = "") Then
                     ' Don't include this attribute
                 Else
@@ -87,6 +93,12 @@ Sub export_strings_plural()
     XDoc.appendChild root
     Dim attr As Object
     
+    If Worksheets("Controls").Range("B18").value <> "" Then
+        Set attr = XDoc.createAttribute("max_local_for")
+        attr.NodeValue = Worksheets("Controls").Range("B18").value
+        root.setAttributeNode attr
+    End If
+    
     Dim tbl As ListObject
     On Error Resume Next
     Set tbl = Worksheets(file).ListObjects("nice_table")
@@ -101,12 +113,12 @@ Sub export_strings_plural()
         Set elem = XDoc.createElement("string")
         root.appendChild elem
         
-        For Each col In Array("english_plural", "english_singular", "explanation", "max", "var", "expect")
+        For Each col In Array("english_plural", "english_singular", "explanation", "max", "var", "expect", "max_local")
             Dim key As String
             key = col
             
             value = ListRow_get(row, key)
-            If Not ((key = "max" Or key = "var" Or key = "expect") And value = "") Then
+            If Not ((key = "max" Or key = "var" Or key = "expect" Or key = "max_local") And value = "") Then
                 Set attr = XDoc.createAttribute(key)
                 attr.NodeValue = value
                 elem.setAttributeNode attr

@@ -7,6 +7,9 @@ The .bas files are in the repo itself both for interest, and to provide diffs/co
 
 # Changelog
 
+2023-01-23
+- Accommodate `max_local` fields (different `max` for CJK fonts)
+
 2022-11-30
 - Remove support for "Lots" in `numbers.xml` (it's removed from VVVVVV)
 - Accommodate `case` field in `strings.xml` (for equivalent English strings needing different translations)

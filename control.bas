@@ -21,6 +21,8 @@ Sub button_fullreset_click()
     clear_sheet "roomnames.xml"
     clear_sheet "roomnames_special.xml"
     
+    Worksheets("Controls").Range("B18").value = ""
+    
     set_status "No data loaded"
 End Sub
 

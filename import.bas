@@ -71,13 +71,23 @@ Sub import_simple(file As String)
     Dim schema_max As Integer
     
     If file = "strings.xml" Then
-        schema_max = 4
+        If Not IsNull(root.getAttribute("max_local_for")) Then
+            Worksheets("Controls").Range("B18").value = root.getAttribute("max_local_for")
+            schema_max = 5
+        Else
+            Worksheets("Controls").Range("B18").value = ""
+            schema_max = 4
+        End If
+    
         ReDim schema(schema_max)
         schema(0) = "english"
         schema(1) = "translation"
         schema(2) = "case"
         schema(3) = "explanation"
         schema(4) = "max"
+        If schema_max = 5 Then
+            schema(5) = "max_local"
+        End If
     ElseIf file = "numbers.xml" Then
         schema_max = 3
         ReDim schema(schema_max)
@@ -171,7 +181,11 @@ Sub import_strings_plural(ByRef forms() As Boolean, ByRef forms_example() As Int
     Dim row As Integer
     row = 1
     Dim schema_max As Integer
-    schema_max = 5 + num_forms
+    If Not IsNull(root.getAttribute("max_local_for")) Then
+        schema_max = 6 + num_forms
+    Else
+        schema_max = 5 + num_forms
+    End If
     ReDim schema(schema_max) As String
     
     schema(0) = "english_plural"
@@ -180,8 +194,13 @@ Sub import_strings_plural(ByRef forms() As Boolean, ByRef forms_example() As Int
     schema(3) = "max"
     schema(4) = "var"
     schema(5) = "expect"
+    If schema_max = 6 + num_forms Then
+        schema(6) = "max_local"
+        sch_ix = 7
+    Else
+        sch_ix = 6
+    End If
     
-    sch_ix = 6
     For f = 0 To 254
         If forms(f) Then
             schema(sch_ix) = "form " & f & " (ex: " & forms_example(f) & ")"
