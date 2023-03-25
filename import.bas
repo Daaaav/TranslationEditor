@@ -285,7 +285,7 @@ Sub import_cutscenes()
     Dim row As Integer
     row = 1
     Dim schema_max As Integer
-    schema_max = 12
+    schema_max = 13
     ReDim schema(schema_max) As String
     
     schema(0) = "id"
@@ -301,6 +301,7 @@ Sub import_cutscenes()
     schema(10) = "pad_left"
     schema(11) = "pad_right"
     schema(12) = "padtowidth"
+    schema(13) = "buttons"
     
     col_A = 1
     col_Z = schema_max + 1

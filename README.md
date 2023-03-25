@@ -7,6 +7,10 @@ The .bas files are in the repo itself both for interest, and to provide diffs/co
 
 # Changelog
 
+2023-03-25
+- Accommodate `buttons` field in `cutscenes.xml`
+- Made the buttons on the Controls sheet bigger (for some reason they become tiny for other people, which is probably a DPI thing, so hopefully I've now compensated enough that the tinier buttons will all be readable)
+
 2023-01-23
 - Accommodate `max_local` fields (different `max` for CJK fonts)
 

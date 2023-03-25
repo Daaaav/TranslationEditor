@@ -200,7 +200,8 @@ Sub export_cutscenes()
         For Each col In Array( _
             "speaker", "english", "translation", _
             "case", "tt", "wraplimit", "centertext", _
-            "pad", "pad_left", "pad_right", "padtowidth" _
+            "pad", "pad_left", "pad_right", "padtowidth", _
+            "buttons" _
         )
             Dim key As String
             key = col
