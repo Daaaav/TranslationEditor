@@ -3,16 +3,9 @@ Sub sanitize_xml(file As String, filename As String)
     ' This function is called at the end of every export, because MSXML's output is suboptimal,
     ' and also litters the text with ellipsis characters.
     ' But we can get it to be consistent with TinyXML.
-
-    Dim FSO
-    Set FSO = CreateObject("Scripting.FileSystemObject")
     
-    Const ForReading = 1
-    Const ForWriting = 2
-    
-    Set doc = FSO.OpenTextFile(filename, ForReading)
-    contents = doc.ReadAll
-    doc.Close
+    Dim contents As String
+    contents = read_file(filename)
     
     ' Add XML header and linebreak before root tag
     contents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & Chr(10) & file_comment(file) & Chr(10) & contents
@@ -44,9 +37,7 @@ Sub sanitize_xml(file As String, filename As String)
     contents = Replace(contents, "'", "&apos;")
     contents = Replace(contents, Chr(13), "") ' Windows carriage return
     
-    Set doc_output = FSO.CreateTextFile(filename)
-    doc_output.Write contents
-    doc_output.Close
+    write_file filename, contents
 End Sub
 
 Function file_comment(file As String) As String
