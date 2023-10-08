@@ -7,6 +7,11 @@ The .bas files are in the repo itself both for interest, and to provide diffs/co
 
 # Changelog
 
+2023-10-08
+- Replace Scripting.FileSystemObject (FSO) by ADODB.Stream to fix file encodings getting messed up on some systems, likely Japanese ones in particular (thanks KabanFriends!)
+- Don't convert `…` to `...` for CJK languages (the sanitization is done because Excel unwantedly converts three dots to a single ellipsis character, but Chinese and Japanese actually intentionally use it)
+- Clarify error message if XML reading is unsuccessful (now gives the actual error instead of always "file not found", which may not be true)
+
 2023-03-25
 - Accommodate `buttons` field in `cutscenes.xml`
 - Made the buttons on the Controls sheet bigger (for some reason they become tiny for other people, which is probably a DPI thing, so hopefully I've now compensated enough that the tinier buttons will all be readable)
