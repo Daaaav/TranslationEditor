@@ -54,7 +54,7 @@ Sub import_simple(file As String)
     delete_temp_file temp_doc_filename
     
     If Not success Then
-        MsgBox "Can't import " & file & ", file not found!", vbExclamation
+        MsgBox "Can't import " & file & "! " & XDoc.parseError.reason, vbExclamation
         Exit Sub
     End If
     
@@ -160,7 +160,7 @@ Sub import_strings_plural(ByRef forms() As Boolean, ByRef forms_example() As Int
     delete_temp_file temp_doc_filename
     
     If Not success Then
-        MsgBox "Can't import " & file & ", file not found!", vbExclamation
+        MsgBox "Can't import " & file & "! " & XDoc.parseError.reason, vbExclamation
         Exit Sub
     End If
     
@@ -271,7 +271,7 @@ Sub import_cutscenes()
     delete_temp_file temp_doc_filename
     
     If Not success Then
-        MsgBox "Can't import " & file & ", file not found!", vbExclamation
+        MsgBox "Can't import " & file & "! " & XDoc.parseError.reason, vbExclamation
         Exit Sub
     End If
     
