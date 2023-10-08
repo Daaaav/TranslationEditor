@@ -32,8 +32,10 @@ Sub sanitize_xml(file As String, filename As String)
     contents = Replace(contents, "<dialogue ", Chr(10) & "        <dialogue ")
     
     ' Decontaminate special characters
-    contents = Replace(contents, Chr(&HE2) & Chr(&H80) & Chr(&HA6), "...") ' ellipsis character
-    contents = Replace(contents, Chr(&HE2) & Chr(&H80) & Chr(&H98), "&apos;") ' U+2018 curly quote, see import->get_file_xml
+    If Worksheets("Controls").Range("B18").value = "" Then
+        contents = Replace(contents, ChrW(&H2026), "...") ' ellipsis character, but only outside of CJK
+    End If
+    contents = Replace(contents, ChrW(&H2018), "&apos;") ' U+2018 curly quote, see import->get_file_xml
     contents = Replace(contents, "'", "&apos;")
     contents = Replace(contents, Chr(13), "") ' Windows carriage return
     

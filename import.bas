@@ -23,7 +23,7 @@ Function get_file_xml(file As String) As String
     ' then it MAY! be loaded in as "text" instead of "'text".
     ' So just replace apostrophes directly following " by a curly quote (U+2018)
     ' and sanitize it out later.
-    contents = Replace(contents, """&apos;", """" & Chr(&HE2) & Chr(&H80) & Chr(&H98))
+    contents = Replace(contents, """&apos;", """" & ChrW(&H2018))
     
     ' For the icing on the cake: MSXML2.DOMDocument.LoadXML only works with UTF-16!
     ' So just use Load with a temporary file instead of converting the string
