@@ -18,9 +18,8 @@ Function get_file_xml(file As String) As String
     Const ForReading = 1
     Const ForWriting = 2
     
-    Set doc = FSO.OpenTextFile(get_cell_path() & "\" & file, ForReading)
-    contents = doc.ReadAll
-    doc.Close
+    Dim contents As String
+    contents = read_file(get_cell_path() & "\" & file)
     
     ' Workaround for a REALLY painful MSXML bug(?)
     ' If an attribute looks like attribute="&apos;text"
@@ -31,10 +30,9 @@ Function get_file_xml(file As String) As String
     
     ' For the icing on the cake: MSXML2.DOMDocument.LoadXML only works with UTF-16!
     ' So just use Load with a temporary file instead of converting the string
+    Dim temp_name As String
     temp_name = FSO.GetTempName()
-    Set doc_output = FSO.CreateTextFile(temp_name)
-    doc_output.Write contents
-    doc_output.Close
+    write_file temp_name, contents
     
     get_file_xml = temp_name
 End Function
