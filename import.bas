@@ -15,9 +15,6 @@ Function get_file_xml(file As String) As String
     Dim FSO
     Set FSO = CreateObject("Scripting.FileSystemObject")
     
-    Const ForReading = 1
-    Const ForWriting = 2
-    
     Dim contents As String
     contents = read_file(get_cell_path() & "\" & file)
     
