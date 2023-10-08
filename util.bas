@@ -24,14 +24,27 @@ Function read_file(file As String) As String
     st.Close
 End Function
 
-Sub write_file(file As String, txt As String)
+Sub write_file(file As String, contents As String)
     Dim st As Object
     Set st = CreateObject("ADODB.Stream")
     
-    st.Type = 2
     st.Charset = "utf-8"
     st.Open
-    st.WriteText txt, 1
+    st.WriteText contents, 0
+    
+    'Strip out UTF-8 BOM
+    'Creates a temporary byte array to store BOM-less data
+    st.Position = 0
+    st.Type = 1
+    st.Position = 3
+    
+    Dim byteData() As Byte
+    byteData = st.Read
+    st.Close
+    
+    ' Write final text
+    st.Open
+    st.Write byteData
     st.SaveToFile file, 2
     st.Close
 End Sub
