@@ -12,6 +12,29 @@ Function ListRow_get(row As ListRow, name As String) As String
     Next col
 End Function
 
+Function read_file(file As String) As String
+    Dim st As Object
+    Set st = CreateObject("ADODB.Stream")
+    
+    st.Type = 2
+    st.Charset = "utf-8"
+    st.Open
+    st.LoadFromFile file
+    read_file = st.ReadText(-1)
+    st.Close
+End Function
+
+Sub write_file(file As String, txt As String)
+    Dim st As Object
+    Set st = CreateObject("ADODB.Stream")
+    
+    st.Type = 2
+    st.Charset = "utf-8"
+    st.Open
+    st.WriteText txt, 1
+    st.SaveToFile file, 2
+    st.Close
+End Sub
 
 ' Just some testing stuff
 
