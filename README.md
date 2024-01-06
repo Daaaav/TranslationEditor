@@ -7,6 +7,9 @@ The .bas files are in the repo itself both for interest, and to provide diffs/co
 
 # Changelog
 
+2024-01-06
+- Add support for translation2 in numbers.xml
+
 2023-10-08
 - Replace Scripting.FileSystemObject (FSO) by ADODB.Stream to fix file encodings getting messed up on some systems, likely Japanese ones in particular (thanks KabanFriends!)
 - Don't convert `…` to `...` for CJK languages (the sanitization is done because Excel unwantedly converts three dots to a single ellipsis character, but Chinese and Japanese actually intentionally use it)

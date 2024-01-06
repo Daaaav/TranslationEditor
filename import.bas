@@ -84,12 +84,13 @@ Sub import_simple(file As String)
             schema(5) = "max_local"
         End If
     ElseIf file = "numbers.xml" Then
-        schema_max = 3
+        schema_max = 4
         ReDim schema(schema_max)
         schema(0) = "value"
         schema(1) = "form"
         schema(2) = "english"
         schema(3) = "translation"
+        schema(4) = "translation2"
     ElseIf file = "roomnames.xml" Then
         schema_max = 4
         ReDim schema(schema_max)

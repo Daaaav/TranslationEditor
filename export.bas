@@ -61,7 +61,7 @@ Sub export_simple(file As String)
                 value = ListRow_get(row, col.name)
     
                 If (file = "strings.xml" And (key = "case" Or key = "max" Or key = "max_local") And value = "") _
-                Or (file = "numbers.xml" And (key = "english" Or key = "translation") And ListRow_get(row, "english") = "") Then
+                Or (file = "numbers.xml" And (key = "english" Or key = "translation" Or key = "translation2") And ListRow_get(row, "english") = "") Then
                     ' Don't include this attribute
                 Else
                     Set attr = XDoc.createAttribute(key)
